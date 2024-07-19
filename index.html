@@ -1705,12 +1705,13 @@
        td[2].classList.add('birthday-month-lastName');
        td[7].classList.add('birthday-month-date');
 
-       // הוספת הפרטים של החוגגים החודש לרשימה
-       var birthdayPerson = `<p>מזהה: <span class="highlight">${td[0].textContent}</span>, שם פרטי: <span class="highlight">${td[1].textContent}</span>, שם משפחה: <span class="highlight">${td[2].textContent}</span>, תאריך יום הולדת: <span class="highlight-date">${td[7].textContent}</span>, גיל ביום ההולדת הקרוב: <span class="highlight">${today.getFullYear() - new Date(td[7].textContent.split("/").reverse().join("-")).getFullYear() + 1}</span></p>`;
+       // הוספת הפרטים של החוגגים החודש לרשימה כולל שם ההורים
+       var birthdayPerson = `<p>מזהה: <span class="highlight">${td[0].textContent}</span>, שם פרטי: <span class="highlight">${td[1].textContent}</span>, שם משפחה: <span class="highlight">${td[2].textContent}</span>, שם ההורים: ${td[3].textContent}, תאריך יום הולדת: <span class="highlight-date">${td[7].textContent}</span>, גיל ביום ההולדת הקרוב: <span class="highlight">${today.getFullYear() - new Date(td[7].textContent.split("/").reverse().join("-")).getFullYear() + 1}</span></p>`;
        currentMonthBirthdays.innerHTML += birthdayPerson;
      }
    }
  }
+
 
  function updateCurrentDate() {
    const now = new Date();
