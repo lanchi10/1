@@ -67,32 +67,6 @@
    margin-right: 8px;
  }
 </style>
-
- }
- .generation-0 {
-   background-color: #ffcccc; /* צבע עבור דור 0 */
- }
- .generation-1 {
-   background-color: #ccffcc; /* צבע עבור דור 1 */
- }
- .generation-2 {
-   background-color: #ccccff; /* צבע עבור דור 2 */
- }
- .generation-3 {
-   background-color: #ffffcc; /* צבע עבור דור 3 */
- }
- .birthday-month-id, .birthday-month-firstName, .birthday-month-lastName, .birthday-month-date {
-   background-color: #ffd700; /* צבע בולט לחוגגי יום הולדת בחודש נוכחי */
- }
- .highlight {
-   color: red;
-   font-weight: bold;
- }
- .highlight-date {
-   color: green;
-   font-weight: bold;
- }
-</style>
 </head>
 <body>
 
@@ -102,37 +76,9 @@
 <div id="currentMonthBirthdays"></div>
 <p class="instructions">ניתן לחפש לפי שם פרטי, שם משפחה, תאריך לידה עברי או לועזי, חודש לידה או דור (למשל "דור 1"). בנוסף, ניתן לבדוק גיל לפי מזהה (למשל, הקלד "120" בתיבת החיפוש גיל).</p>
 <label class="search-label" for="searchInput">חיפוש:</label>
-<input type="text" id="searchInput" class="search-inputs" onkeyup="searchTable()" placeholder="חפש דור, חודש, שם, תאריך או דור...">
-<br>
-<label class="search-label" for="idInput">הקלד מספר מזהה:</label>
-<input type="number" id="idInput" class="search-inputs" oninput="calculateAge()" placeholder="הכנס מספר מזהה...">
-<p id="ageOutput"></p>
-
-<table id="familyTable">
- <thead>
-   <tr>
-     <th>מזהה</th>
-     <th>שם פרטי</th>
-     <th>שם משפחה</th>
-     <th>בן/בת של</th>
-     <th>דור</th>
-     <th>תאריך לידה עברי</th>
-     <th>חודש לידה עברי</th>
-     <th>תאריך לידה לועזי</th>
-     <th>חודש לידה לועזי</th>
-   </tr>
- </thead>
- <tbody id="familyTableBody">
-   <!-- תוכן הטבלה כאן -->
- </tbody>
-</table>
-
-<script>
- // קוד JavaScript כאן
-</script>
-
-</body>
-
+<input type="text" id="searchInput" onkeyup="searchTable()" class="search-inputs" placeholder="דור 1 הבנים והבת של שמעון ושושנה , דור 2 הנכדים ,דור 3 הנינים של סבתא וסבא .חפש דור חודש  שם, תאריך, חודש או דור...">
+<label class="search-label" for="idInput">חיפוש מזהה:</label>
+<input type="number" id="idInput" oninput="calculateAge()" class="search-inputs" placeholder="הכנס מספר מזהה לצפייה בגיל בתאריך לידה עברי ולועזי וכמה ימים נותרו עד יום הולדת הבא...">
 <p id="ageOutput"></p>
 
 <table id="familyTable">
@@ -727,8 +673,7 @@
      <td>רוני</td>
      <td>הורוביץ</td>
      <td>אליסף ויהודית</td>
-     <td>דור 2</
-     <td>דור 2</td>
+     <td>דור 2</</td>
      <td>כ"ה אלול תשל"ח</td>
      <td>אלול</td>
      <td>27/09/1978</td>
@@ -1804,3 +1749,4 @@
 
 </body>
 </html>
+
