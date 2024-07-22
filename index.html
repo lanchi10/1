@@ -45,16 +45,14 @@
  .generation-3 {
    background-color: #ffffcc; /* צבע עבור דור 3 */
  }
- .birthday-month-id, .birthday-month-firstName, .birthday-month-lastName, .birthday-month-date {
-   background-color: #ffd700; /* צבע בולט לחוגגי יום הולדת בחודש נוכחי */
- }
  .highlight {
-   color: red;
    font-weight: bold;
  }
  .highlight-date {
-   color: green;
-   font-weight: bold;
+   color: blue;
+ }
+ .highlight-age {
+   color: red;
  }
  .instructions {
    font-size: 14px;
@@ -66,13 +64,32 @@
  .search-label {
    margin-right: 8px;
  }
+ .birthday-record {
+   margin-bottom: 10px;
+ }
+ .link-section {
+   text-align: center;
+   margin-bottom: 20px;
+ }
+ .link-section a {
+   color: blue;
+   text-decoration: none;
+   font-weight: bold;
+ }
+ .link-section a:hover {
+   text-decoration: underline;
+ }
 </style>
 </head>
 <body>
 
+<div class="link-section">
+  <a href="https://lanchi10.github.io/heb/" target="_blank">ימי הולדת לפי תאריך עברי</a>
+</div>
+
 <h1>ימי הולדת משפחת לנדסברג רמות</h1>
 <div id="currentDate"></div>
-<h2>חוגגים יום הולדת החודש:</h2>
+<h2 id="currentMonthTitle">חוגגים יום הולדת ביולי:</h2>
 <div id="currentMonthBirthdays"></div>
 <p class="instructions">ניתן לחפש לפי שם פרטי, שם משפחה, תאריך לידה עברי או לועזי, חודש לידה או דור (למשל "דור 1"). בנוסף, ניתן לבדוק גיל לפי מזהה (למשל, הקלד "120" בתיבת החיפוש גיל).</p>
 <label class="search-label" for="searchInput">חיפוש:</label>
@@ -1765,6 +1782,7 @@
      <td>דצמבר</td>
      <td>עופרה</td>
    </tr>
+
  </tbody>
 </table>
 
@@ -1850,18 +1868,24 @@ function highlightCurrentMonthBirthdays() {
 
     for (var i = 1; i < tr.length; i++) {
         var td = tr[i].getElementsByTagName("td");
-        var birthMonth = new Date(td[7].textContent.split("/").reverse().join("-")).getMonth();
-        if (birthMonth === currentMonth) {
-            td[0].classList.add('birthday-month-id');
-            td[1].classList.add('birthday-month-firstName');
-            td[2].classList.add('birthday-month-lastName');
-            td[7].classList.add('birthday-month-date');
-
-            // הוספת הפרטים של החוגגים החודש לרשימה כולל שם ההורים
-            var birthdayPerson = `<p>מזהה: <span class="highlight">${td[0].textContent}</span>, שם פרטי: <span class="highlight">${td[1].textContent}</span>, שם משפחה: <span class="highlight">${td[2].textContent}</span>, שם ההורים: ${td[3].textContent}, תאריך יום הולדת: <span class="highlight-date">${td[7].textContent}</span>, גיל ביום ההולדת הקרוב: <span class="highlight">${today.getFullYear() - new Date(td[7].textContent.split("/").reverse().join("-")).getFullYear() + 1}</span></p>`;
-            currentMonthBirthdays.innerHTML += birthdayPerson;
+        if (td.length > 7) {
+            var birthMonth = new Date(td[7].textContent.split("/").reverse().join("-")).getMonth();
+            if (birthMonth === currentMonth) {
+                // הוספת הפרטים של החוגגים החודש לרשימה כולל שם ההורים
+                var birthDateObj = new Date(td[7].textContent.split("/").reverse().join("-"));
+                var ageNextBirthday = today.getFullYear() - birthDateObj.getFullYear();
+                if (today.getMonth() > birthMonth || (today.getMonth() === birthMonth && today.getDate() > birthDateObj.getDate())) {
+                    ageNextBirthday++;
+                }
+                var birthdayPerson = `<div class="birthday-record"><p><span class="highlight">${td[1].textContent} ${td[2].textContent}</span>. ההורים: ${td[3].textContent}. יום ההולדת: <span class="highlight-date">${td[7].textContent}</span>, ${td[5].textContent}. גיל ביום ההולדת הקרוב: <span class="highlight-age">${ageNextBirthday}</span></p></div>`;
+                currentMonthBirthdays.innerHTML += birthdayPerson;
+            }
         }
     }
+
+    // עדכון כותרת לרשימת ימי ההולדת
+    const months = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
+    document.getElementById("currentMonthTitle").textContent = `ימי הולדת ב${months[currentMonth]}`;
 }
 
 function updateCurrentDate() {
@@ -1878,7 +1902,7 @@ function updateCurrentDate() {
         month: 'long',
         year: 'numeric'
     }).format(now);
-    document.getElementById('currentDate').innerHTML = `היום: ${hebrewDate}<br>תאריך לועזי: ${gregorianDate}`;
+    document.getElementById('currentDate').innerHTML = `בס"ד היום: ${hebrewDate}<br>תאריך לועזי: ${gregorianDate}`;
 }
 
 updateCurrentDate();
