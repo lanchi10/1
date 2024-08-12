@@ -132,6 +132,24 @@
             --text-color: #ffffff;
             --card-bg: #2a2a2a;
         }
+        #navButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 1000;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        #navButton:hover {
+            background-color: var(--secondary-color);
+        }
     </style>
 </head>
 <body>
@@ -155,6 +173,9 @@
             </div>
         </div>
     </div>
+
+    <!-- כפתור מעבר ליישום הראשון -->
+    <button id="navButton" onclick="navigateToFirstApp()">עבור ליישום הראשון</button>
 
     <script>
         const aiTools = [
@@ -205,11 +226,10 @@
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
         }
+
+        function navigateToFirstApp() {
+            window.location.href = 'https://lanchi10.github.io/ai/';
+        }
     </script>
 </body>
 </html>
-
-Version 3 of 3
-
-
-
