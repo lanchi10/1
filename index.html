@@ -1,105 +1,215 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>משחק חיות לילדים</title>
+    <title>כלי AI וחיפוש מתקדמים</title>
     <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #50b3a2;
+            --background-color: #f0f4f8;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s ease;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         h1 {
-            color: #ff6347;
-            margin-top: 20px;
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        .animal-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .animal-box {
-            margin: 10px;
-        }
-        .animal-image {
-            width: 150px;
-            height: 150px;
-            border: 3px solid #ff6347;
-            border-radius: 15px;
-            cursor: pointer;
-            background-color: #ffe4b5;
-            padding: 10px;
-        }
-        .animal-image:hover {
-            background-color: #ffebcd;
-        }
-        .button {
-            padding: 15px 30px;
-            font-size: 22px;
-            cursor: pointer;
-            background-color: #48d1cc;
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
             color: white;
             border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .card {
+            background-color: var(--card-bg);
             border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: calc(50% - 20px);
+            min-width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        li:hover {
+            background-color: #e0e0e0;
+        }
+        .tool-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 10px;
         }
-        .button:hover {
-            background-color: #20b2aa;
+        .tool-name {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .icon {
+            font-size: 1.5rem;
+            margin-left: 10px;
+        }
+        .tool-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .launch-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .launch-btn:hover {
+            background-color: var(--primary-color);
+        }
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+            }
+        }
+        .dark-mode {
+            --background-color: #1a1a1a;
+            --text-color: #ffffff;
+            --card-bg: #2a2a2a;
         }
     </style>
 </head>
 <body>
-    <h1>משחק חיות</h1>
-
-    <div class="animal-container">
-        <div class="animal-box">
-            <button class="button" onclick="askQuestion('Elephant')">שאלה על פיל</button>
-            <img src="images/Elephant.jpg" alt="פיל" class="animal-image" onclick="checkAnswer('Elephant')">
-        </div>
-        <div class="animal-box">
-            <button class="button" onclick="askQuestion('Dog')">שאלה על כלב</button>
-            <img src="images/Dog.jpg" alt="כלב" class="animal-image" onclick="checkAnswer('Dog')">
-        </div>
-        <div class="animal-box">
-            <button class="button" onclick="askQuestion('Cat')">שאלה על חתול</button>
-            <img src="images/Cat.jpg" alt="חתול" class="animal-image" onclick="checkAnswer('Cat')">
-        </div>
-        <div class="animal-box">
-            <button class="button" onclick="askQuestion('Horse')">שאלה על סוס</button>
-            <img src="images/Horse.jpg" alt="סוס" class="animal-image" onclick="checkAnswer('Horse')">
-        </div>
-        <div class="animal-box">
-            <button class="button" onclick="askQuestion('Fish')">שאלה על דג</button>
-            <img src="images/Fish.jpg" alt="דג" class="animal-image" onclick="checkAnswer('Fish')">
-        </div>
-        <div class="animal-box">
-            <button class="button" onclick="askQuestion('Bear')">שאלה על דוב</button>
-            <img src="images/Bear.jpg" alt="דוב" class="animal-image" onclick="checkAnswer('Bear')">
+    <button class="theme-toggle" onclick="toggleTheme()">החלף תצוגה</button>
+    <header>
+        <h1>כלי AI וחיפוש מתקדמים</h1>
+    </header>
+    <div class="container">
+        <div class="card-container">
+            <div class="card">
+                <h2>יישומי AI</h2>
+                <ul id="ai-tools">
+                    <!-- יישומי AI יתווספו כאן דינמית -->
+                </ul>
+            </div>
+            <div class="card">
+                <h2>מנועי חיפוש</h2>
+                <ul id="search-engines">
+                    <!-- מנועי חיפוש יתווספו כאן דינמית -->
+                </ul>
+            </div>
         </div>
     </div>
 
     <script>
-        var currentAnimal = "";
+        const aiTools = [
+            { name: "CHAT GPT", url: "https://chat.openai.com/", icon: "🤖", description: "צ'אטבוט AI מתקדם המסוגל לענות על שאלות, לכתוב טקסטים ולסייע במגוון משימות" },
+            { name: "Claude", url: "https://www.anthropic.com/", icon: "🧠", description: "עוזר AI חכם המתמחה בניתוח, כתיבה יצירתית ופתרון בעיות מורכבות" },
+            { name: "Gemini", url: "https://gemini.google.com/app", icon: "💎", description: "מודל שפה מתקדם של Google המשלב יכולות טקסט ותמונה" },
+            { name: "Copilot", url: "https://copilot.microsoft.com/", icon: "👨‍✈️", description: "עוזר AI אישי של Microsoft המשולב במגוון מוצרים ושירותים" },
+            { name: "Perplexity", url: "https://www.perplexity.ai/", icon: "🧩", description: "מנוע חיפוש מבוסס AI המספק תשובות מקיפות עם מקורות" },
+            { name: "Mistral", url: "https://chat.mistral.ai/", icon: "🌪️", description: "מודל שפה חדשני עם יכולות מתקדמות בעיבוד שפה טבעית" },
+            { name: "Reka", url: "https://reka.ai/", icon: "🔬", description: "פלטפורמת AI לפיתוח ואימון מודלים מותאמים אישית" },
+            { name: "POE", url: "https://poe.com/", icon: "📚", description: "פלטפורמה המאפשרת גישה למגוון רחב של מודלי AI ובוטים" },
+            { name: "Midjourney", url: "https://www.midjourney.com/", icon: "🎨", description: "כלי ליצירת אמנות דיגיטלית מרהיבה באמצעות AI" },
+            { name: "DALL-E", url: "https://labs.openai.com/", icon: "🖼️", description: "מערכת AI ליצירת תמונות מתיאורים טקסטואליים" }
+        ];
 
-        function askQuestion(animal) {
-            currentAnimal = animal;
-            var audio = new Audio('animal_sounds/' + animal + '_sound.mp3');
-            audio.play();
+        const searchEngines = [
+            { name: "Google", url: "https://www.google.com/", icon: "🔍", description: "מנוע החיפוש הפופולרי ביותר בעולם, המציע תוצאות מדויקות ורלוונטיות" },
+            { name: "Bing", url: "https://www.bing.com/", icon: "🌐", description: "מנוע החיפוש של Microsoft, המשלב תכונות AI ואינטגרציה עם שירותי Microsoft" },
+            { name: "DuckDuckGo", url: "https://duckduckgo.com/", icon: "🦆", description: "מנוע חיפוש המתמקד בפרטיות המשתמש, ללא מעקב אחר היסטוריית החיפוש" },
+            { name: "Brave", url: "https://search.brave.com/", icon: "🦁", description: "מנוע חיפוש פרטי ומאובטח, חלק מדפדפן Brave" },
+            { name: "Perplexity AI", url: "https://www.perplexity.ai/", icon: "🤔", description: "מנוע חיפוש מבוסס AI המספק תשובות מפורטות עם מקורות מידע" },
+            { name: "Bing AI", url: "https://www.bing.com/search?q=Bing+AI&showconv=1", icon: "🤖", description: "גרסת AI של Bing המשלבת חיפוש עם יכולות שיחה מתקדמות" },
+            { name: "You.com", url: "https://you.com/", icon: "👤", description: "מנוע חיפוש מותאם אישית המשלב AI לתוצאות רלוונטיות יותר" },
+            { name: "Ecosia", url: "https://www.ecosia.org/", icon: "🌳", description: "מנוע חיפוש ירוק המשתמש ברווחים לנטיעת עצים ברחבי העולם" }
+        ];
+
+        function createListItems(items, listId) {
+            const list = document.getElementById(listId);
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="tool-info">
+                        <span class="tool-name">
+                            <span class="icon">${item.icon}</span>
+                            ${item.name}
+                        </span>
+                        <button class="launch-btn" onclick="window.open('${item.url}', '_blank')">הפעל</button>
+                    </div>
+                    <div class="tool-description">${item.description}</div>
+                `;
+                list.appendChild(li);
+            });
         }
 
-        function checkAnswer(animal) {
-            if (animal === currentAnimal) {
-                var correctSound = new Audio('animal_sounds/' + animal + '_sound.mp3');
-                correctSound.play();
-                alert("כל הכבוד! זיהית נכון את ה" + animal + "!");
-            } else {
-                alert("זה לא נכון. נסה שוב!");
-            }
+        createListItems(aiTools, 'ai-tools');
+        createListItems(searchEngines, 'search-engines');
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
         }
     </script>
 </body>
 </html>
+
+Version 3 of 3
+
+
+
